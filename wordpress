@@ -11,7 +11,7 @@
   </ul>          
 </div> 
 
-1. how to add active class in current menu using jquery:
+2. how to add active class in current menu using jquery:
 
 <script>
 	 jQuery(document).ready(function() {

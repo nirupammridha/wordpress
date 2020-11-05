@@ -1,0 +1,2 @@
+1.
+use get_the_excerpt() instead of the_excerpt(), because the last one will output the excerpt to the screen, and not pass it to your other functions.
