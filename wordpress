@@ -1,0 +1,39 @@
+1. For custom nav menu:
+<?php $items = wp_get_nav_menu_items('main-menu'); ?>
+        
+<div class="collapse navbar-collapse" id="navbarCollapse">
+  <ul class="navbar-nav mr-auto" id="navmenu">
+  	<?php foreach ( $items as $item ): ?>
+    <li class="nav-item">
+      <a class="nav-link" href="<?php echo $item->url; ?>"><?php echo $item->post_title; ?></a>
+    </li>
+	<?php endforeach; ?> 
+  </ul>          
+</div> 
+
+1. how to add active class in current menu using jquery:
+
+<script>
+	 jQuery(document).ready(function() {
+        // Get current page URL
+         var url = window.location.href;
+         // remove # from URL
+         url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+
+         // remove parameters from URL
+         url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+         // Loop all menu items
+         $('#navmenu li').each(function(){
+
+          // select href
+          var href = $(this).find('a').attr('href');
+          // Check filename
+          if(url == href){
+           // Add active class
+           $(this).addClass('active');
+           $(this).find('a').append('<span class="sr-only">(current)</span>');
+          }
+         });
+
+       }); 
+</script>
