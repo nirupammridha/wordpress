@@ -62,6 +62,57 @@
        }); 
 </script>
 
+<script>
+     jQuery(document).ready(function() {
+            // Get current page URL
+             var url = window.location.href;
+             //var base_url = window.location.origin;
+             //var pathname = window.location.pathname;
+
+             // remove # from URL
+             url = url.substring(0, (url.indexOf("#") == -1) ? url.length : url.indexOf("#"));
+
+             // remove parameters from URL
+             url = url.substring(0, (url.indexOf("?") == -1) ? url.length : url.indexOf("?"));
+             //url = url.substring(0, (url.lastIndexOf("/") == -1) ? url.length : url.lastIndexOf("/"));
+             
+             //url = url.substr(url.lastIndexOf("/") + 1);
+                         
+
+             var post_type = $('#post_type').val();
+             console.log(post_type);
+              if(url.indexOf('service') > 0 || url.indexOf('services') > 0){
+           url = 'services';
+              }
+              if(url.indexOf('project') > 0 || url.indexOf('portfolio') > 0){
+               url = 'portfolio';
+              }
+              if(post_type == 'post'){
+               url = 'blogs';
+              }
+             
+              
+             // Loop all menu items
+             $('#navmenu li').each(function(){
+
+              // select href
+              var href = $(this).find('a').attr('href');
+               
+              // Check filename              
+              if(href.indexOf(url) > 0){
+               // Add active class
+               $(this).addClass('active');
+               $(this).find('a').append('<span class="sr-only">(current)</span>');
+              }
+              else if (href==url) {
+                $(this).addClass('active');
+                $(this).find('a').append('<span class="sr-only">(current)</span>');
+              }
+             });
+
+         }); 
+  </script>
+
 4. To get thumbnail url:
 
 <?php                  
