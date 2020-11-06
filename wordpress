@@ -11,7 +11,31 @@
   </ul>          
 </div> 
 
-2. how to add active class in current menu using jquery:
+2. Use of wp_nav_menu:
+<?php 
+    $args = array(
+        'menu'                 => 'footer-menu',
+        'container'            => 'div',
+        'container_class'      => 'menu-area',
+        'container_id'         => '',
+        'container_aria_label' => '',
+        'menu_class'           => 'footer-menu',
+        'menu_id'              => '',
+        'echo'                 => true,
+        'fallback_cb'          => 'wp_page_menu',
+        'before'               => '',
+        'after'                => '',
+        'link_before'          => '',
+        'link_after'           => '',
+        'items_wrap'           => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+        'item_spacing'         => 'preserve',
+        'depth'                => 0,
+        'walker'               => '',
+        'theme_location'       => 'Footer Menu',
+    );
+    wp_nav_menu( $args ); ?>
+
+3. how to add active class in current menu using jquery:
 
 <script>
 	 jQuery(document).ready(function() {
@@ -38,13 +62,54 @@
        }); 
 </script>
 
-3. To get thumbnail url:
+4. To get thumbnail url:
 
 <?php                  
     if(has_post_thumbnail()): ?>
           <img src="<?php the_post_thumbnail_url('full'); ?>" width="350" height="216" alt="<?php the_title(); ?>">
 <?php endif; ?>
 
-4. To get permalink url:
+5. To get permalink url:
 
 <a href="<?php echo get_the_permalink($post->ID); ?>"></a>
+
+6. Tax query to get data by taxonomy, slug.
+ <?php
+  $coreteam = new WP_Query( array(
+    'post_type' => 'team',
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'member-categories',
+        'field' => 'slug',
+        'terms' => 'core-members'
+      ))
+    ) 
+  );
+  $devteam = new WP_Query( array(
+    'post_type' => 'team',
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'member-categories',
+        'field' => 'slug',
+        'terms' => 'development-team'
+      ))
+    ) 
+  );
+?>
+
+7. To get data by taxonomy, term_id
+
+$_portfolioArgs = [
+'post_type' => 'project',
+//'tag' => 'featured',
+'tax_query' => array(
+    'taxonomy' => 'project-tags',
+    'field' => 'term_id',
+    'terms' => 8
+),
+'posts_per_page'=>3,
+'orderby' => 'ID',
+'order' => 'desc',
+];
+
+$portfolios = new WP_Query($_portfolioArgs);
